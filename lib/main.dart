@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,8 +22,7 @@ class MyApp extends StatelessWidget {
 
 class Loading extends StatelessWidget {
   @override
-  Widget build(BuildContext context) =>
-      Container(
+  Widget build(BuildContext context) => Container(
         child: LinearProgressIndicator(),
       );
 }
@@ -33,7 +33,8 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  var _currentProcess = 1; //0: loading, 1: form, 2: application finish, 10: prev, 11: after
+  var _currentProcess =
+      1; //0: loading, 1: form, 2: application finish, 10: prev, 11: after
 
   Widget _getCurrentWidget() {
     switch (this._currentProcess) {
@@ -42,13 +43,32 @@ class MainPageState extends State<MainPage> {
       case 1:
         return Column(
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "학번",
-              ),
-            )
-            ],
+            Container(
+                margin: const EdgeInsets.all(30),
+                child: Text(
+                  "이름을 입력해주세요.",
+                  style: TextStyle(fontSize: 30),
+                  textAlign: TextAlign.left,
+                )),
+            Container(
+                margin: const EdgeInsets.all(30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "이름",
+                  ),
+                  style: TextStyle(),
+                )),
+            Container(
+                margin: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "학번",
+                  ),
+                  style: TextStyle(),
+                )),
+          ],
         );
     }
     return Container(
@@ -59,24 +79,29 @@ class MainPageState extends State<MainPage> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         body: Center(
             child: FractionallySizedBox(
-              child: ListView(
-                children: <Widget>[
-                  Text(
-                    "동래고등학교 진로 체험 신청",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  Divider(),
-                  _getCurrentWidget(),
-                ],
+          child: Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "동래고등학교 진로 체험 신청",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
-              widthFactor: 0.8,
-              alignment: Alignment.center,
-            )
-        ),
+              Container(
+                child: Center(child: Divider()),
+                //margin: const EdgeInsets.all(30),
+              ),
+              _getCurrentWidget(),
+            ],
+          )),
+          widthFactor: 0.8,
+          alignment: Alignment.center,
+        )),
       );
 }
